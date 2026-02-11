@@ -1,0 +1,423 @@
+<style>
+/* ---------------- GLOBAL ---------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* ---------------- FLOATING BUY BUTTON ---------------- */
+.floating-buy {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0A2A66;
+  color: white;
+  padding: 18px 50px;
+  border-radius: 50px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  z-index: 9999;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.floating-buy:hover {
+  background: black;
+}
+
+/* ---------------- ROTATING BANNER ---------------- */
+.top-banner {
+  width: 100%;
+  background: #0A2A66;
+  color: #0A2A66;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  position: relative;
+  animation: slowRotate 25s linear infinite;
+}
+
+.top-banner img {
+  height: 35px;
+  margin-right: 15px;
+}
+
+.top-banner span {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+@keyframes slowRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ---------------- HERO SECTION ---------------- */
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 30px;
+}
+
+.hero-text {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 52px;
+  font-weight: 700;
+  text-align: center;
+  z-index: 2;
+}
+
+.overlay-dim {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  top: 0;
+}
+
+/* ---------------- GENERAL SECTION ---------------- */
+.section {
+  padding: 120px 10%;
+  text-align: center;
+}
+
+.section h2 {
+  font-size: 42px;
+  margin-bottom: 30px;
+}
+
+.section p {
+  font-size: 18px;
+  max-width: 800px;
+  margin: auto;
+  line-height: 1.6;
+}
+
+.section img {
+  width: 100%;
+  max-width: 900px;
+  margin-top: 60px;
+  border-radius: 30px;
+}
+
+/* ---------------- PRODUCT EMBED ---------------- */
+.product-section {
+  padding: 120px 10%;
+}
+
+/* ---------------- BLACK FEATURE SECTION ---------------- */
+.black-section {
+  background: black;
+  color: white;
+  padding: 120px 10%;
+  text-align: center;
+}
+
+.black-section h2 {
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+
+/* ---------------- FEATURE GRID ---------------- */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  background: black;
+  padding: 100px 5%;
+}
+
+.feature-box {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  border-radius: 25px;
+}
+
+.feature-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gradient-top {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
+  padding: 25px;
+}
+
+.gradient-top h3 {
+  font-size: 20px;
+  color: black;
+}
+
+.gradient-bottom {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 14px;
+}
+
+/* ---------------- SPLIT ANIMATION ---------------- */
+.split-section {
+  background: black;
+  color: white;
+  text-align: center;
+  padding: 150px 10%;
+  position: relative;
+}
+
+.split-container {
+  position: relative;
+  height: 500px;
+}
+
+.split-half {
+  position: absolute;
+  width: 50%;
+  transition: transform 1s ease;
+}
+
+.split-left {
+  left: 0;
+}
+
+.split-right {
+  right: 0;
+}
+
+/* ---------------- TESTIMONIALS ---------------- */
+.testimonials {
+  background: white;
+  padding: 120px 10%;
+}
+
+.testimonials h2 {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.testimonial-box {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
+  min-height: 150px;
+}
+
+/* ---------------- CONTACT ---------------- */
+.contact-section {
+  background: black;
+  color: white;
+  text-align: center;
+  padding: 120px 10%;
+}
+
+.contact-section small {
+  display: block;
+  margin-top: 30px;
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+@media(max-width: 900px){
+  .feature-grid,
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<!-- FLOATING BUY -->
+<a href="/products/your-product-handle" class="floating-buy">BUY NOW</a>
+
+<!-- TOP BANNER -->
+<div class="top-banner">
+  <img src="YOUR_LOGO_IMAGE_URL_HERE">
+  <span>LIMITED TIME FLASH SALE</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="overlay-dim" id="heroDim"></div>
+  <img src="SECOND_REFERENCE_IMAGE_URL">
+  <div class="hero-text">Because everyone hears differently</div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="section">
+  <h2>The speaker that you need. With two as one.</h2>
+  <p>
+    Our speaker is directly linked to an increase in satisfaction.
+    The splittable design and its overwhelmingly powerful audio fills homes,
+    offices, gaming rooms, and living rooms with lifelong memories.
+    Bring Aurova into your home, for more love and happiness for all.
+  </p>
+  <img src="THIRD_REFERENCE_IMAGE_URL">
+</div>
+
+<!-- PRODUCT SECTION -->
+<div class="product-section">
+  {% assign product = all_products['your-product-handle'] %}
+  {% if product %}
+    {% form 'product', product %}
+      <h2>{{ product.title }}</h2>
+      <p>{{ product.price | money }}</p>
+      <select name="id">
+        {% for variant in product.variants %}
+          <option value="{{ variant.id }}">{{ variant.title }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit">Add to Cart</button>
+    {% endform %}
+  {% endif %}
+</div>
+
+<!-- BLACK OFFER SECTION -->
+<div class="black-section">
+  <h2>What we offer & why you should choose us</h2>
+  <p>
+    our speaker comes with dual neodymium drivers, a bass resonance chamber,
+    10+ hours on one charge, bluetooth 5.0 and multi-input playback,
+    reinforced ABS housing, and splittable technology.
+  </p>
+</div>
+
+<!-- FEATURE GRID -->
+<div class="feature-grid">
+
+  <div class="feature-box">
+    <img src="IMAGE1_URL">
+    <div class="gradient-top">
+      <h3>dual neodymium drivers</h3>
+    </div>
+    <div class="gradient-bottom">
+      rare-earth magnets with high compact strength and lightweight
+    </div>
+  </div>
+
+  <div class="feature-box">
+    <img src="IMAGE2_URL">
+    <div class="gradient-top">
+      <h3>bass resonance chamber</h3>
+    </div>
+    <div class="gradient-bottom">
+      Reinforced soundwaves for richer bass experience.
+    </div>
+  </div>
+
+  <div class="feature-box">
+    <img src="IMAGE3_URL">
+    <div class="gradient-top">
+      <h3>powerful long lasting battery life<br><small style="font-size:7px;">10+ hours</small></h3>
+    </div>
+    <div class="gradient-bottom">
+      High energy density and long cycle life
+    </div>
+  </div>
+
+  <div class="feature-box">
+    <img src="IMAGE4_URL">
+    <div class="gradient-top">
+      <h3>Bluetooth 5.0 with multi-input playback</h3>
+    </div>
+    <div class="gradient-bottom">
+      Audio 2x speed and 4x Distance
+    </div>
+  </div>
+
+  <div class="feature-box">
+    <img src="IMAGE5_URL">
+    <div class="gradient-top">
+      <h3>Reinforced ABS housing</h3>
+    </div>
+  </div>
+
+  <div class="feature-box">
+    <img src="IMAGE6_URL">
+    <div class="gradient-top">
+      <h3>splittable technology</h3>
+    </div>
+  </div>
+
+</div>
+
+<!-- SPLIT SECTION -->
+<div class="split-section">
+  <h2>Designed to separate. Built to unite.</h2>
+  <div class="split-container">
+    <img src="SPLIT_LEFT_IMAGE_URL" class="split-half split-left" id="leftHalf">
+    <img src="SPLIT_RIGHT_IMAGE_URL" class="split-half split-right" id="rightHalf">
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="testimonials">
+  <h2>Testimonials</h2>
+  <div class="testimonial-grid">
+    {% for i in (1..6) %}
+      <div class="testimonial-box">
+        Add testimonial here via theme editor.
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-section">
+  <h2>Further questions? We can be reached at @aurovasound@gmail.com</h2>
+  <small>
+    we represent unity in division, versatility, and reliability. Aurova 2026 Ⓒ
+  </small>
+</div>
+
+<script>
+window.addEventListener("scroll", function(){
+  let scroll = window.scrollY;
+  let heroDim = document.getElementById("heroDim");
+  heroDim.style.opacity = scroll / 600;
+
+  let left = document.getElementById("leftHalf");
+  let right = document.getElementById("rightHalf");
+
+  if(scroll > 2500){
+    left.style.transform = "translateX(-120px)";
+    right.style.transform = "translateX(120px)";
+  } else {
+    left.style.transform = "translateX(0)";
+    right.style.transform = "translateX(0)";
+  }
+});
+</script>
