@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "main": {
+      "type": "aurova-custom-liquid"
+    }
+  },
+  "order": ["main"]
+}
