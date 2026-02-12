@@ -16,51 +16,94 @@ body {
   position: fixed;
   bottom: 25px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(120px);
   background: #0A2A66;
   color: white;
-  padding: 18px 50px;
+  padding: 16px 45px;
   border-radius: 50px;
   font-weight: 600;
   letter-spacing: 1px;
   z-index: 9999;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
+  opacity: 0;
+}
+
+.floating-buy.visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
 }
 
 .floating-buy:hover {
   background: black;
 }
 
-/* ---------------- ROTATING BANNER ---------------- */
+/* ---------------- SCROLLING BANNER ---------------- */
 .top-banner {
   width: 100%;
   background: #0A2A66;
-  color: #0A2A66;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 12px;
+  color: white;
+  overflow: hidden;
   position: relative;
-  animation: slowRotate 25s linear infinite;
 }
 
-.top-banner img {
-  height: 35px;
-  margin-right: 15px;
+/* subtle edge fade */
+.top-banner::before,
+.top-banner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
 }
 
-.top-banner span {
+.top-banner::before {
+  left: 0;
+  background: linear-gradient(to right, #0A2A66, transparent);
+}
+
+.top-banner::after {
+  right: 0;
+  background: linear-gradient(to left, #0A2A66, transparent);
+}
+
+.banner-track {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  width: max-content;
+  animation: scrollText 30s linear infinite; /* slower + premium */
+}
+
+.top-banner:hover .banner-track {
+  animation-play-state: paused;
+}
+
+.banner-track span {
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
+  letter-spacing: 1px;
 }
 
-@keyframes slowRotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+
+.banner-track img {
+  height: 22px;
+  width: auto;
+  animation: logoPulse 3s ease-in-out infinite;
 }
 
-/* ---------------- HERO SECTION ---------------- */
+@keyframes scrollText {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes logoPulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+/* ---------------- HERO ---------------- */
 .hero {
   position: relative;
   height: 100vh;
@@ -69,41 +112,33 @@ body {
 
 .hero img {
   width: 100%;
-  height: 100%;
+  height: 110%;
   object-fit: cover;
-  border-radius: 30px;
+  transform: translateY(0);
+  transition: transform 0.2s linear;
 }
 
 .hero-text {
   position: absolute;
-  top: 40%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
-  font-size: 52px;
+  font-size: clamp(28px, 5vw, 56px);
   font-weight: 700;
   text-align: center;
+  width: 90%;
   z-index: 2;
 }
 
-.overlay-dim {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: black;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  top: 0;
-}
-
-/* ---------------- GENERAL SECTION ---------------- */
+/* ---------------- SECTIONS ---------------- */
 .section {
   padding: 120px 10%;
   text-align: center;
 }
 
 .section h2 {
-  font-size: 42px;
+  font-size: clamp(26px, 4vw, 42px);
   margin-bottom: 30px;
 }
 
@@ -121,12 +156,33 @@ body {
   border-radius: 30px;
 }
 
-/* ---------------- PRODUCT EMBED ---------------- */
+/* ---------------- PRODUCT SECTION ---------------- */
 .product-section {
   padding: 120px 10%;
+  text-align: center;
 }
 
-/* ---------------- BLACK FEATURE SECTION ---------------- */
+.product-section select,
+.product-section button {
+  padding: 12px 20px;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  margin: 10px;
+}
+
+.product-section button {
+  background: #0A2A66;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.product-section button:hover {
+  background: black;
+}
+
+/* ---------------- BLACK SECTION ---------------- */
 .black-section {
   background: black;
   color: white;
@@ -134,23 +190,18 @@ body {
   text-align: center;
 }
 
-.black-section h2 {
-  font-size: 40px;
-  margin-bottom: 30px;
-}
-
 /* ---------------- FEATURE GRID ---------------- */
 .feature-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
   background: black;
   padding: 100px 5%;
 }
 
 .feature-box {
   position: relative;
-  height: 100vh;
+  height: 500px;
   overflow: hidden;
   border-radius: 25px;
 }
@@ -166,7 +217,7 @@ body {
   top: 0;
   width: 100%;
   height: 40%;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
+  background: linear-gradient(to bottom, rgba(255,255,255,0.9), transparent);
   padding: 25px;
 }
 
@@ -175,22 +226,12 @@ body {
   color: black;
 }
 
-.gradient-bottom {
-  position: absolute;
-  bottom: 30px;
-  width: 100%;
-  text-align: center;
-  color: white;
-  font-size: 14px;
-}
-
-/* ---------------- SPLIT ANIMATION ---------------- */
+/* ---------------- SPLIT SECTION ---------------- */
 .split-section {
   background: black;
   color: white;
   text-align: center;
   padding: 150px 10%;
-  position: relative;
 }
 
 .split-container {
@@ -204,12 +245,16 @@ body {
   transition: transform 1s ease;
 }
 
-.split-left {
-  left: 0;
+/* ---------------- FADE IN ---------------- */
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s ease;
 }
 
-.split-right {
-  right: 0;
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ---------------- TESTIMONIALS ---------------- */
@@ -218,14 +263,9 @@ body {
   padding: 120px 10%;
 }
 
-.testimonials h2 {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
 .testimonial-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
 }
 
@@ -234,7 +274,6 @@ body {
   border-radius: 20px;
   padding: 25px;
   box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
-  min-height: 150px;
 }
 
 /* ---------------- CONTACT ---------------- */
@@ -245,51 +284,48 @@ body {
   padding: 120px 10%;
 }
 
-.contact-section small {
-  display: block;
-  margin-top: 30px;
-  font-size: 10px;
-  opacity: 0.7;
-}
+/* ---------------- MOBILE ---------------- */
+@media(max-width: 768px){
+  .hero {
+    height: 80vh;
+  }
 
-@media(max-width: 900px){
-  .feature-grid,
-  .testimonial-grid {
-    grid-template-columns: 1fr;
+  .split-container {
+    height: 300px;
   }
 }
 </style>
 
 <!-- FLOATING BUY -->
-<a href="/products/your-product-handle" class="floating-buy">BUY NOW</a>
+<a href="/products/your-product-handle" class="floating-buy" id="floatingBuy">BUY NOW</a>
 
-<!-- TOP BANNER -->
+<!-- BANNER -->
 <div class="top-banner">
-  <img src="YOUR_LOGO_IMAGE_URL_HERE">
-  <span>LIMITED TIME FLASH SALE</span>
+  <div class="banner-track">
+    <span>LIMITED TIME FLASH SALE</span>
+    <span>LIMITED TIME FLASH SALE</span>
+    <span>LIMITED TIME FLASH SALE</span>
+  </div>
 </div>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="overlay-dim" id="heroDim"></div>
-  <img src="SECOND_REFERENCE_IMAGE_URL">
-  <div class="hero-text">Because everyone hears differently</div>
+  <img src="SECOND_REFERENCE_IMAGE_URL" id="heroImage">
+  <div class="hero-text fade-in">Because everyone hears differently</div>
 </div>
 
-<!-- SECTION 2 -->
-<div class="section">
+<!-- SECTION -->
+<div class="section fade-in">
   <h2>The speaker that you need. With two as one.</h2>
   <p>
-    Our speaker is directly linked to an increase in satisfaction.
-    The splittable design and its overwhelmingly powerful audio fills homes,
-    offices, gaming rooms, and living rooms with lifelong memories.
-    Bring Aurova into your home, for more love and happiness for all.
+    Our speaker increases satisfaction with powerful immersive audio.
+    Designed to split and unite, it fills every space with rich sound.
   </p>
   <img src="THIRD_REFERENCE_IMAGE_URL">
 </div>
 
-<!-- PRODUCT SECTION -->
-<div class="product-section">
+<!-- PRODUCT -->
+<div class="product-section fade-in">
   {% assign product = all_products['your-product-handle'] %}
   {% if product %}
     {% form 'product', product %}
@@ -305,86 +341,17 @@ body {
   {% endif %}
 </div>
 
-<!-- BLACK OFFER SECTION -->
-<div class="black-section">
-  <h2>What we offer & why you should choose us</h2>
-  <p>
-    our speaker comes with dual neodymium drivers, a bass resonance chamber,
-    10+ hours on one charge, bluetooth 5.0 and multi-input playback,
-    reinforced ABS housing, and splittable technology.
-  </p>
-</div>
-
-<!-- FEATURE GRID -->
-<div class="feature-grid">
-
-  <div class="feature-box">
-    <img src="IMAGE1_URL">
-    <div class="gradient-top">
-      <h3>dual neodymium drivers</h3>
-    </div>
-    <div class="gradient-bottom">
-      rare-earth magnets with high compact strength and lightweight
-    </div>
-  </div>
-
-  <div class="feature-box">
-    <img src="IMAGE2_URL">
-    <div class="gradient-top">
-      <h3>bass resonance chamber</h3>
-    </div>
-    <div class="gradient-bottom">
-      Reinforced soundwaves for richer bass experience.
-    </div>
-  </div>
-
-  <div class="feature-box">
-    <img src="IMAGE3_URL">
-    <div class="gradient-top">
-      <h3>powerful long lasting battery life<br><small style="font-size:7px;">10+ hours</small></h3>
-    </div>
-    <div class="gradient-bottom">
-      High energy density and long cycle life
-    </div>
-  </div>
-
-  <div class="feature-box">
-    <img src="IMAGE4_URL">
-    <div class="gradient-top">
-      <h3>Bluetooth 5.0 with multi-input playback</h3>
-    </div>
-    <div class="gradient-bottom">
-      Audio 2x speed and 4x Distance
-    </div>
-  </div>
-
-  <div class="feature-box">
-    <img src="IMAGE5_URL">
-    <div class="gradient-top">
-      <h3>Reinforced ABS housing</h3>
-    </div>
-  </div>
-
-  <div class="feature-box">
-    <img src="IMAGE6_URL">
-    <div class="gradient-top">
-      <h3>splittable technology</h3>
-    </div>
-  </div>
-
-</div>
-
-<!-- SPLIT SECTION -->
-<div class="split-section">
+<!-- SPLIT -->
+<div class="split-section fade-in">
   <h2>Designed to separate. Built to unite.</h2>
   <div class="split-container">
-    <img src="SPLIT_LEFT_IMAGE_URL" class="split-half split-left" id="leftHalf">
-    <img src="SPLIT_RIGHT_IMAGE_URL" class="split-half split-right" id="rightHalf">
+    <img src="SPLIT_LEFT_IMAGE_URL" class="split-half" id="leftHalf">
+    <img src="SPLIT_RIGHT_IMAGE_URL" class="split-half" id="rightHalf" style="right:0;">
   </div>
 </div>
 
 <!-- TESTIMONIALS -->
-<div class="testimonials">
+<div class="testimonials fade-in">
   <h2>Testimonials</h2>
   <div class="testimonial-grid">
     {% for i in (1..6) %}
@@ -396,28 +363,52 @@ body {
 </div>
 
 <!-- CONTACT -->
-<div class="contact-section">
-  <h2>Further questions? We can be reached at @aurovasound@gmail.com</h2>
-  <small>
-    we represent unity in division, versatility, and reliability. Aurova 2026 Ⓒ
-  </small>
+<div class="contact-section fade-in">
+  <h4>Further questions? aurovasound@gmail.com or @aurovasound on instagram</h2>
 </div>
 
 <script>
-window.addEventListener("scroll", function(){
-  let scroll = window.scrollY;
-  let heroDim = document.getElementById("heroDim");
-  heroDim.style.opacity = scroll / 600;
+document.addEventListener("DOMContentLoaded", function(){
 
-  let left = document.getElementById("leftHalf");
-  let right = document.getElementById("rightHalf");
+  const heroImg = document.getElementById("heroImage");
+  const floatingBuy = document.getElementById("floatingBuy");
+  const left = document.getElementById("leftHalf");
+  const right = document.getElementById("rightHalf");
 
-  if(scroll > 2500){
-    left.style.transform = "translateX(-120px)";
-    right.style.transform = "translateX(120px)";
-  } else {
-    left.style.transform = "translateX(0)";
-    right.style.transform = "translateX(0)";
-  }
+  // PARALLAX
+  window.addEventListener("scroll", () => {
+    let scrollY = window.scrollY;
+    heroImg.style.transform = "translateY(" + scrollY * 0.3 + "px)";
+
+    if(scrollY > 500){
+      floatingBuy.classList.add("visible");
+    } else {
+      floatingBuy.classList.remove("visible");
+    }
+  });
+
+  // FADE IN OBSERVER
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add("visible");
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+
+  // SPLIT ANIMATION OBSERVER
+  const splitObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        left.style.transform = "translateX(-120px)";
+        right.style.transform = "translateX(120px)";
+      }
+    });
+  }, { threshold: 0.5 });
+
+  splitObserver.observe(document.querySelector(".split-section"));
+
 });
 </script>
